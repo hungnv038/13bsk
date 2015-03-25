@@ -4,6 +4,7 @@
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 </header>
 <body>
+<span id="idresult"></span>
 <span id="allDate"><script language="javascript" type="text/javascript" defer="defer"></script></span>
 <script type="text/javascript">
     function LoadLiveFile()
@@ -26,10 +27,10 @@
             dataType: 'json',
             type: "POST",
             success:function(result) {
-
+                $('#idresult').append("Success");
             },
             error: function(jqXHR){
-                alert("Error");
+                $('#idresult').append("Error");
             }
         });
     }
