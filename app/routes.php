@@ -11,7 +11,17 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', function() {
+    return View::make("hello");
 });
+Route::get('/syncdata',function() {
+    return View::make('syncdata');
+});
+
+Route::post('/matchs','MatchController@postMatchs');
+
+// Background process
+Route::get('/background/updateodd','OddController@updateOdd');
+
+
+
