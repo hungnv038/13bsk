@@ -11,6 +11,7 @@ class MatchController extends BaseController {
     public function postMatchs()
     {
         try {
+            Log::info("Run Post Matchs");
             $input=Input::all();
             $data=$input['data'];
             $json=json_decode($data);
