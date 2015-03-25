@@ -18,6 +18,10 @@ Route::get('/syncdata',function() {
     return View::make('syncdata');
 });
 
+Route::get('/log',function() {
+    Log::info("Run Here");
+});
+
 Route::post('/matchs','MatchController@postMatchs');
 
 // Background process

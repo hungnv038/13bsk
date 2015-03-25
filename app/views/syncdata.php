@@ -22,6 +22,17 @@
         data_json=JSON.stringify(data);
 
         $.ajax({
+            url:"log",
+            type:"GET",
+            success: function (result) {
+
+            },
+            error: function(result) {
+
+            }
+        });
+
+        $.ajax({
             url:'matchs',
             data: {data:data_json},
             dataType: 'json',
