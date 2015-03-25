@@ -31,7 +31,29 @@ ClassLoader::addDirectories(array(
 |
 */
 
-Log::useFiles(storage_path().'/logs/laravel.log');
+Log::listen(function($level, $message, $context) {
+    // Save the php sapi and date, because the closure needs to be serialized
+    //$apiName = php_sapi_name();
+    $apiName = Route::getCurrentRoute()->getPath();
+    // Get Error Code
+    preg_match('/ERROR_CODE:\s*(\d+)/', $message, $matches);
+    $startTime = isset($context['start_time']) ? $context['start_time'] : 0;
+    //$endTime = isset($context['end_time']) ? $context['end_time'] : 0;
+    $endTime = microtime(true);
+    $errorCode = isset($matches[1]) ? $matches[1] : 200;
+    Queue::push(function() use ($level, $errorCode, $message, $context, $apiName, $startTime, $endTime) {
+        DB::insert("INSERT INTO _logs (php_sapi_name, level, error_code, message, context, created_at, start_time, end_time) VALUES (?, ?, ?, ?, ?, now(),?,?)", array(
+            $apiName,
+            $level,
+            $errorCode,
+            $message,
+            null, //json_encode($context),
+            $startTime,
+            $endTime
+        ));
+    });
+});
+
 
 /*
 |--------------------------------------------------------------------------

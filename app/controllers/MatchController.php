@@ -23,7 +23,7 @@ class MatchController extends BaseController {
             $this->updateLeagues($leags);
 
         } catch(Exception $e) {
-            echo $e->getMessage();
+            return ResponseBuilder::error($e);
         }
     }
     private function updateMatchs($matchs,$leagues) {

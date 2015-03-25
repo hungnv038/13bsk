@@ -24,4 +24,11 @@ Route::post('/matchs','MatchController@postMatchs');
 Route::get('/background/updateodd','OddController@updateOdd');
 
 
+// LOGS
+Route::post('/deletelogs','LogController@deleteLog');
+Route::get('/logs','LogController@getLog');
+Route::get('/apidocs','LogController@getApiDocs');
+Route::get('/getApiDoc','LogController@getApiDoc');
+Route::match(array('GET', 'POST'), '/setApiDoc','LogController@setApiDoc');
+
 

@@ -9,6 +9,7 @@
 class OddController extends BaseController{
     public function updateOdd() {
         try {
+            Log::info("Run background Odd");
             $match_id=InputHelper::getInput('match_id',true);
 
             $match_object=Match::getInstance()->getOneObjectByField(array('id'=>$match_id));
