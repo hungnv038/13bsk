@@ -28,7 +28,7 @@
                         HT
                     @elseif(intval($match->status)==1)
                         {{
-                            floor((time()-strtotime($match->time_1))/60);
+                            floor((time()-strtotime($match->time_2))/60);
                         }}
                     @elseif(intval($match->status)==3)
                         {{
