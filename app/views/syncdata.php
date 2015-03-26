@@ -19,18 +19,7 @@
     function ShowBf() {
         var data={a_array:A,b_array:B,c_array:C,matchcount:matchcount,sclasscount:sclasscount};
 
-        data_json=JSON.stringify(data);
-
-        $.ajax({
-            url:"log",
-            type:"GET",
-            success: function (result) {
-
-            },
-            error: function(result) {
-
-            }
-        });
+        data_json="data="+JSON.stringify(data);
 
         $.ajax({
             url:'matchs',

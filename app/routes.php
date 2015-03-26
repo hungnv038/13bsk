@@ -14,6 +14,25 @@
 Route::get('/', function() {
     return View::make("hello");
 });
+
+Route::get('/runcurl',function() {
+
+    //$result=file_get_contents("http://www.nowgoal.com/data/bf_vn.js?".time());
+// create curl resource
+    $ch = curl_init();
+
+    // set url
+    curl_setopt($ch, CURLOPT_URL, "http://www.nowgoal.com/data/bf_vn.js?".time());
+
+    //return the transfer as a string
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    // $output contains the output string
+    $output = curl_exec($ch);
+
+    // close curl resource to free up system resources
+    curl_close($ch);
+});
 Route::get('/syncdata',function() {
     return View::make('syncdata');
 });

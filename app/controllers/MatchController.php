@@ -12,12 +12,12 @@ class MatchController extends BaseController {
     {
         try {
             Log::info("Run Post Matchs");
-            $input=Input::all();
-            $data=$input['data'];
-            $json=json_decode($data);
+            $json=InputHelper::getInput("data",true);
 
-            $matchs=$json->a_array;
-            $leags=$json->b_array;
+            $data=$this->processData($json);
+
+            $matchs=$data->a_array;
+            $leags=$data->b_array;
 
             $this->updateMatchs($matchs,$leags);
 
@@ -26,6 +26,23 @@ class MatchController extends BaseController {
         } catch(Exception $e) {
             return ResponseBuilder::error($e);
         }
+    }
+    private function processData($js_data) {
+        $data=explode("\r\n",$js_data);
+        $number_matchs=intval(StringHelper::getStringdata($data[3],"=",";"));
+        $number_leagues=intval(StringHelper::getStringdata($data[4],"=",";"));
+
+        $datarrr=new stdClass();
+        $datarrr->a_array=array();
+        $datarrr->b_array=array();
+        for($index=5;$index<5+$number_matchs;$index++) {
+            $datarrr->a_array[]=StringHelper::getData($data[$index],"=",";");
+        }
+        for($index=5+$number_matchs;$index<5+$number_matchs+$number_leagues;$index++) {
+            $datarrr->b_array[$index-$number_matchs-4]=StringHelper::getData($data[$index],"=",";");
+        }
+
+        return $datarrr;
     }
     private function updateMatchs($matchs,$leagues) {
         $match_objs=array();
@@ -56,40 +73,36 @@ class MatchController extends BaseController {
                 $g_team=substr($g_team,0,$pos);
             }
 
-            $times1=explode(",",$match[6]);
-
             $time_1=new DateTime();
-            $time_1->setDate($times1[0],$times1[1]+1,$times1[2]);
-            $time_1->setTime($times1[3],$times1[4],$times1[5]);
-
-            $times2=explode(",",$match[7]);
+            $time_1->setDate($match[6],$match[7]+1,$match[8]);
+            $time_1->setTime($match[9],$match[10],$match[11]);
 
             $time_2=new DateTime();
-            $time_2->setDate($times2[0],$times2[1]+1,$times2[2]);
-            $time_2->setTime($times2[3],$times2[4],$times2[5]);
+            $time_2->setDate($match[12],$match[13]+1,$match[14]);
+            $time_2->setTime($match[15],$match[16],$match[17]);
 
             $match_objs[$id]=array(
                 'id'=>$id,
                 'league_id'=>$leagues[$match[1]][0],
                 'time_1'=>$time_1,
                 'time_2'=>$time_2,
-                'h_goal'=>$match[9],
-                'g_goal'=>$match[10],
-                'h_read_card'=>$match[13],
-                'g_read_card'=>$match[14],
-                'h_yellow_card'=>$match[15],
-                'g_yellow_card'=>$match[16],
-                'status'=>$match[8],
-                'ht_h_goal'=>$match[11]==null?0:$match[11],
-                'ht_g_goal'=>$match[12]==null?0:$match[12],
+                'h_goal'=>$match[19],
+                'g_goal'=>$match[20],
+                'h_read_card'=>$match[23],
+                'g_read_card'=>$match[24],
+                'h_yellow_card'=>$match[25],
+                'g_yellow_card'=>$match[26],
+                'status'=>$match[18],
+                'ht_h_goal'=>$match[21]==null?0:$match[21],
+                'ht_g_goal'=>$match[22]==null?0:$match[22],
                 'created_at'=>array('now()'),
                 'h_team'=>$h_team,
                 'g_team'=>$g_team,
-                'have_odd'=>$match[20]=='True'?1:0,
-                'odd_link'=>$match[20]=='True'?$link:""
+                'have_odd'=>$match[30]=='True'?1:0,
+                'odd_link'=>$match[30]=='True'?$link:""
 
             );
-            if($match[20]=='True') {
+            if($match[30]=='True') {
                 $match_odds[$id]=$link;
             }
         }
