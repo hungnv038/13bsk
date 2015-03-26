@@ -20,17 +20,19 @@
         @foreach($matchs as $match)
             <?php
 
-            if(intval($match->h_read_card)!=0) $h_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->h_read_card.".gif'>"; else $h_redcard = "";
-            if(intval($match->g_read_card)!=0) $g_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->g_read_card.".gif'>"; else  $g_redcard = "";
-            if(intval($match->h_yellow_card)!=0) $h_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->h_yellow_card.".gif'>"; else $h_yellowcard = "";
-            if(intval($match->g_yellow_card)!=0) $g_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->g_yellow_card.".gif'>"; else  $g_yellowcard = "";
+                if(intval($match->h_read_card)!=0) $h_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->h_read_card.".gif'>"; else $h_redcard = "";
+                if(intval($match->g_read_card)!=0) $g_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->g_read_card.".gif'>"; else  $g_redcard = "";
+                if(intval($match->h_yellow_card)!=0) $h_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->h_yellow_card.".gif'>"; else $h_yellowcard = "";
+                if(intval($match->g_yellow_card)!=0) $g_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->g_yellow_card.".gif'>"; else  $g_yellowcard = "";
 
 
-            $start_time=DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i");
-                    $minute="";
-                    $time_color="";
-                    $ht_score='';
-                    $score='<font color="blue"> - </font>';
+                $start_time=DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1);
+                $start_time->setTimezone(new DateTimeZone("Asia/Ho_Chi_Minh"));
+                $start_time=$start_time->format("M-j H:i");
+                $minute="";
+                $time_color="";
+                $ht_score='';
+                $score='<font color="blue"> - </font>';
                 if(intval($match->status)==-1) {
                     $time_color='<font color="0x0066ff">FT</font>';
 
@@ -64,7 +66,7 @@
                 <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center">
                     {{$match->code}}
                 </td>
-                <td style="text-align: center">{{DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i")}}</td>
+                <td style="text-align: center">{{$start_time}}</td>
                 <td style="text-align: center">
                    {{$time_color}}
                 </td>
