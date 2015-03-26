@@ -41,11 +41,16 @@ Route::get('/log',function() {
     Log::info("Run Here");
 });
 
+//// APIS
 Route::post('/matchs','MatchController@postMatchs');
+Route::get('/cron','BackgroundProcessController@cron');
 
 // Background process
 Route::get('/background/updateodd','OddController@updateOdd');
 
+
+
+// PAGES
 
 // LOGS
 Route::post('/deletelogs','LogController@deleteLog');
@@ -54,6 +59,9 @@ Route::get('/apidocs','LogController@getApiDocs');
 Route::get('/getApiDoc','LogController@getApiDoc');
 Route::match(array('GET', 'POST'), '/setApiDoc','LogController@setApiDoc');
 
-Route::get('/cron','BackgroundProcessController@cron');
+// CLIENTS
+Route::get('/matchs','ClientViewController@getMatchsView');
+
+
 
 
