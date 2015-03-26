@@ -34,6 +34,7 @@
                         {{
                             floor(46+(time()-strtotime($match->time_2))/60);
                         }}
+                    @else {{$match->status}}
                     @endif
                 </td>
                 <td>{{$match->h_team}}</td>
