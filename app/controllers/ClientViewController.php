@@ -8,8 +8,11 @@
 
 class ClientViewController extends BaseController{
     public function getMatchsView() {
+        return View::make('client.matchs');
+    }
+    public function getMatchsData() {
         $matchs=Match::getInstance()->getAllMatchsInTime();
-        return View::make('client.matchs',array('matchs'=>$matchs));
+        echo  View::make('client.matchlist',array('matchs'=>$matchs));
     }
     public function getSettingView() {
         return View::make('client.settings');

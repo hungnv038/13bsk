@@ -60,7 +60,9 @@ Route::get('/getApiDoc','LogController@getApiDoc');
 Route::match(array('GET', 'POST'), '/setApiDoc','LogController@setApiDoc');
 
 // CLIENTS
+Route::get('/matchs/data','ClientViewController@getMatchsData');
 Route::get('/matchs','ClientViewController@getMatchsView');
+
 
 
 
