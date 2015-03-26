@@ -28,11 +28,11 @@
                         HT
                     @elseif(intval($match->status)==1)
                         {{
-                            (time()-strtotime($match->time_1))/60;
+                            floor((time()-strtotime($match->time_1))/60);
                         }}
                     @elseif(intval($match->status)==3)
                         {{
-                            45+(time()-strtotime($match->time_2))/60;
+                            floor(46+(time()-strtotime($match->time_2))/60);
                         }}
                     @endif
                 </td>
