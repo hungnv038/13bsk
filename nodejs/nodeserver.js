@@ -18,7 +18,7 @@ http.createServer(function(request,response) {
 
         //the whole response has been recieved, so we just print it out here
         response.on('end', function () {
-            onCompleted("Get Js Completed.");
+            onCompleted(str);
         });
     }
 
