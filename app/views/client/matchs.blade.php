@@ -26,9 +26,15 @@
                         FT
                     @elseif(intval($match->status)==2)
                         HT
-                    @elseif(intval($match->status)==1 || intval($match->status)==3)
-
-
+                    @elseif(intval($match->status)==1)
+                        {{
+                            (time()-strtotime($match->time_1))/60;
+                        }}
+                    @elseif(intval($match->status)==3)
+                        {{
+                            45+(time()-strtotime($match->time_2))/60;
+                        }}
+                    @endif
                 </td>
                 <td>{{$match->h_team}}</td>
                 <td>{{$match->h_goal." - ".$match->g_goal}}</td>

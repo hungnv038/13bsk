@@ -1,4 +1,4 @@
-var server_path="/football/matchs";
+var server_path="/13bsk/public/matchs";
 var http=require("http");
 http.createServer(function(request,response) {
     var data = "";
@@ -58,7 +58,7 @@ function onCompleted(result) {
 
         //the whole response has been recieved, so we just print it out here
         response.on('end', function () {
-            //console.log("completed.");
+            console.log("completed.");
         });
     }
 
