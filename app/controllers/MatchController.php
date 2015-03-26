@@ -84,8 +84,8 @@ class MatchController extends BaseController {
             $match_objs[$id]=array(
                 'id'=>$id,
                 'league_id'=>$leagues[$match[1]][0],
-                'time_1'=>$time_1,
-                'time_2'=>$time_2,
+                'time_1'=>$time_1->format("Y,m,j,H,i,s"),
+                'time_2'=>$time_2->format("Y,m,j,H,i,s"),
                 'h_goal'=>$match[19],
                 'g_goal'=>$match[20],
                 'h_read_card'=>$match[23],
