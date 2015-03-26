@@ -44,7 +44,7 @@ class Match extends DBAccess {
             $sql.=" ".$key.' = CASE ';
 
             foreach($match_objs as $obj) {
-                $sql.=" WHEN id={$obj['id']} THEN {$obj[$key]} ";
+                $sql.=" WHEN id={$obj['id']} THEN '".$obj[$key]."'";
             }
             $sql.=" END ";
 
