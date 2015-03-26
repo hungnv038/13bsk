@@ -19,7 +19,14 @@
         <tbody>
         @foreach($matchs as $match)
             <?php
-                $start_time=DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i");
+
+            if(intval($match->h_read_card)!=0) $h_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->h_read_card.".gif'>"; else $h_redcard = "";
+            if(intval($match->g_read_card)!=0) $g_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->g_read_card.".gif'>"; else  $g_redcard = "";
+            if(intval($match->h_yellow_card)!=0) $h_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->h_yellow_card.".gif'>"; else $h_yellowcard = "";
+            if(intval($match->g_yellow_card)!=0) $g_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->g_yellow_card.".gif'>"; else  $g_yellowcard = "";
+
+
+            $start_time=DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i");
                     $minute="";
                     $time_color="";
                     $ht_score='';
@@ -61,9 +68,9 @@
                 <td style="text-align: center">
                    {{$time_color}}
                 </td>
-                <td style="text-align: right">{{$match->h_team}}</td>
+                <td style="text-align: right"><?php echo $h_yellowcard; echo $h_redcard; echo $match->h_team; ?></td>
                 <td style="text-align: center">{{$score}}</td>
-                <td style="text-align: left">{{$match->g_team}}</td>
+                <td style="text-align: left"><?php echo $match->g_team; echo $g_yellowcard; echo $g_redcard;?></td>
                 <td style="text-align: center">{{$ht_score}}</td>
                 <td style="text-align: center">
                     @if($match->have_odd)
