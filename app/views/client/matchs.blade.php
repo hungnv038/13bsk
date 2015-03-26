@@ -22,35 +22,50 @@
                 $start_time=DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i");
                     $minute="";
                     $time_color=0x000;
+                    $ht_score='';
+                    $score='<font color="blue"> - </font>';
                 if(intval($match->status)==-1) {
-                    $minute="FT";
-                    $time_color=0xff0000;
+                    $time_color='<font color="0x0066ff">FT</font>';
+
+                    $ht_score='<font color="red">'.$match->ht_h_goal.' - '.$match->ht_g_goal.'</font>';
+
+                    $score='<font color="red">'.$match->h_goal.' - '.$match->g_goal.'</font>';
+
                 }elseif(intval($match->status)==2) {
-                    $minute="HT";
-                    $time_color=0x0000ff;
+                    $time_color='<font color="blue">HT</font>';
+
+                    $score='<font color="blue">'.$match->h_goal.' - '.$match->g_goal.'</font>';
                 }elseif(intval($match->status)==1) {
                     $minute=floor((time()-strtotime($match->time_2))/60);
                     if($minute<1) $minute=1;
                     if($minute>45) $minute="45+";
-                    $time_color=0x0000ff;
+                    $time_color='<font color="0x0066ff">'.$minute.'</font>';
+
+                    $score='<font color="blue">'.$match->h_goal.' - '.$match->g_goal.'</font>';
                 }elseif(intval($match->status)==3) {
                     $minute=floor(46+(time()-strtotime($match->time_2))/60);
                     if($minute<46) $minute=46;
                     if($minute>90) $minute="90+";
-                    $time_color=0x0000ff;
+                    $time_color='<font color="0x0066ff">'.$minute.'</font>';
+
+                    $ht_score='<font color="red">'.$match->ht_h_goal.' - '.$match->ht_g_goal.'</font>';
+
+                    $score='<font color="blue">'.$match->h_goal.' - '.$match->g_goal.'</font>';
                 }
             ?>
             <tr>
-                <td style="background-color: {{$match->color}}}; color: #ffffff">{{$match->code}}</td>
-                <td>{{DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i")}}</td>
-                <td style="color: {{$time_color}} !important;">
-                    {{$minute}}
+                <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center">
+                    {{$match->code}}
                 </td>
-                <td>{{$match->h_team}}</td>
-                <td>{{$match->h_goal." - ".$match->g_goal}}</td>
-                <td>{{$match->g_team}}</td>
-                <td>{{$match->ht_h_goal." - ".$match->ht_g_goal}}</td>
-                <td>
+                <td style="text-align: center">{{DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i")}}</td>
+                <td style="text-align: center">
+                   {{$time_color}}
+                </td>
+                <td style="text-align: right">{{$match->h_team}}</td>
+                <td style="text-align: center">{{$score}}</td>
+                <td style="text-align: left">{{$match->g_team}}</td>
+                <td style="text-align: center">{{$ht_score}}</td>
+                <td style="text-align: center">
                     @if($match->have_odd)
                         <a href="{{$match->odd_link}}"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
                     @endif
