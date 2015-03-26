@@ -54,4 +54,6 @@ Route::get('/apidocs','LogController@getApiDocs');
 Route::get('/getApiDoc','LogController@getApiDoc');
 Route::match(array('GET', 'POST'), '/setApiDoc','LogController@setApiDoc');
 
+Route::get('/cron','BackgroundProcessController@cron');
+
 

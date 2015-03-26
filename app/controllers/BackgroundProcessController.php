@@ -1,7 +1,7 @@
 <?php
 
 class BackgroundProcessController extends BaseController {
-    const NUMBER_RECORD = 30;
+    const NUMBER_RECORD = 50;
     public function process( $processId ) {
         $bg = new BackgroundProcess();
         try {
