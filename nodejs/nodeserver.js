@@ -58,7 +58,7 @@ function onCompleted(result) {
 
         //the whole response has been recieved, so we just print it out here
         response.on('end', function () {
-            console.log("completed.");
+            //console.log("completed.");
         });
     }
 
