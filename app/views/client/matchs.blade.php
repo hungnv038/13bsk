@@ -56,7 +56,6 @@
             <tr>
                 <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center">
                     {{$match->code}}
-                    <image src="http://www.nowgoal.com/images/in.gif" border="0"/>
                 </td>
                 <td style="text-align: center">{{DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1)->format("M-j H:i")}}</td>
                 <td style="text-align: center">
