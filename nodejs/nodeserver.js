@@ -1,3 +1,4 @@
+var server_path="/football/matchs";
 var http=require("http");
 http.createServer(function(request,response) {
     var data = "";
@@ -17,7 +18,7 @@ http.createServer(function(request,response) {
 
         //the whole response has been recieved, so we just print it out here
         response.on('end', function () {
-            onCompleted(str);
+            onCompleted("Get Js Completed.");
         });
     }
 
@@ -38,7 +39,7 @@ function onCompleted(result) {
 
     var options = {
         host: 'localhost',
-        path: '/13bsk/public/matchs',
+        path: server_path,
         //since we are listening on a custom port, we need to specify it by hand
         port: '80',
         //This is what changes the request to a POST request
@@ -58,7 +59,7 @@ function onCompleted(result) {
 
         //the whole response has been recieved, so we just print it out here
         response.on('end', function () {
-            console.log(str);
+            console.log("completed.");
         });
     }
 
