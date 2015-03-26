@@ -140,6 +140,14 @@ class BackgroundProcess extends ModelBase{
         return $r[0]->cnt;
     }
 
+    public static function countRecords() {
+        $r = DBConnection::read()->select("
+            SELECT count(*) as cnt
+            FROM process"
+        );
+        return $r[0]->cnt;
+    }
+
     private static function run($command) {
         try {
             if (self::getPathBase() == null) {

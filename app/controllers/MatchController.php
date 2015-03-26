@@ -139,8 +139,9 @@ class MatchController extends BaseController {
             $commands[]="/background/updateodd";
             $parameters[]=array('match_id'=>$match_id,'odd_link'=>$odd_link);
         }
-
-        BackgroundProcess::getInstance()->throwMultipleProcesses(array('command'=>$commands,'parameter'=>$parameters));
+        if(BackgroundProcess::countRecords()==0) {
+            BackgroundProcess::getInstance()->throwMultipleProcesses(array('command'=>$commands,'parameter'=>$parameters));
+        }
     }
     private function updateLeagues($leagues) {
         $league_objs=array();
