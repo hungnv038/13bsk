@@ -34,7 +34,6 @@ function onCompleted(result) {
 
     var qs = JSON.stringify(data_json);
 
-    console.log(qs);
     var length=qs.length;
 
     var options = {
