@@ -58,7 +58,7 @@ class Match extends DBAccess {
         $sql="  select matchs.*,code,color from matchs
                 inner join leagues on leagues.id=league_id
                 where to_days(now())-to_days(time_1)<2 and to_days(now())-to_days(time_1)>-2
-                order by status desc, time_2 desc ";
+                order by status desc, time_2 asc ";
         $results=DBConnection::read()->select($sql);
 
         return $results;
