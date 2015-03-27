@@ -60,6 +60,12 @@ class OddController extends BaseController{
                             break;
                         }
                 }
+                if(count($result)==0) {
+                    return;
+                }
+                if(count($result[0]->children)==0) {
+                    return;
+                }
 
                 $tabls=$result[0]->children[0];
 

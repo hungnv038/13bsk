@@ -1,3 +1,13 @@
+<?php
+$state_ch=array(
+        0=>"Postp.",1=>"Pause",2=>"Abd",
+        3=>"<font color=green>Pend.</font>",
+        4=>"Cancel",
+        13=>"<b>FT</b>",
+        14=>"&nbsp",15=>"Part1",
+        16=>"<font color=blue>HT</font>",
+        17=>"Part2",18=>"Ot");
+?>
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
@@ -55,6 +65,8 @@
             $ht_score='<font color="red">'.$match->ht_h_goal.' - '.$match->ht_g_goal.'</font>';
 
             $score='<font color="blue">'.$match->h_goal.' - '.$match->g_goal.'</font>';
+        } else {
+            $time_color=$state_ch[$match->status+14];
         }
         ?>
         <tr>
