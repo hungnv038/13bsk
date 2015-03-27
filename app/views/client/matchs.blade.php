@@ -24,7 +24,7 @@
                 }
             });
 
-            setInterval("refresh()",1000*60);
+            setTimeout("refresh()",1000*60);
         }
     </script>
     <div id="result">

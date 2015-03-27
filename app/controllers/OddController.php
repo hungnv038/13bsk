@@ -87,9 +87,17 @@ class OddController extends BaseController{
                     $minute_tag=$odd->children[0];
 
                     if(count($minute_tag->nodes)==0) {
-                        $minute="-";
+                        $minute=-1;
                     } else {
-                        $minute=$minute_tag->nodes[0]->text();
+                        $minute=trim($minute_tag->nodes[0]->text());
+                        if(strtoupper($minute)=="HT")
+                        {
+                            $minute=-2;
+                        } elseif(strtoupper($minute)=="FT") {
+                            $minute=-3;
+                        } else {
+                            $minute=intval($minute);
+                        }
                     }
 
                     $score_tag=$odd->children[1];
@@ -103,32 +111,48 @@ class OddController extends BaseController{
                     $home_tag=$odd->children[2];
 
                     if(count($home_tag->nodes)==0) {
-                        $home_odd="-1";
+                        $home_odd=-999;
                     } else {
                         $home_odd=$home_tag->nodes[0]->text();
                         if(strtoupper($home_odd)=="CLOSED") {
-                            $home_odd="-1";
+                            $home_odd=-999;
+                        } elseif(strpos($home_odd,'/')!=null) {
+                            $strs=explode("/",$home_odd);
+                            $home_odd=(doubleval($strs[0])+doubleval($strs[1]))/2;
+                        } else {
+                            $home_odd=doubleval($home_odd);
                         }
                     }
                     $draw_tag=$odd->children[3];
 
                     if(count($draw_tag->nodes)==0) {
-                        $draw_odd="-1";
+                        $draw_odd=-999;
                     } else {
                         $draw_odd=$draw_tag->nodes[0]->text();
                         if(strtoupper($draw_odd)=="CLOSED") {
-                            $draw_odd="-1";
+                            $draw_odd=-999;
+                        }
+                        elseif(strpos($draw_odd,'/')!=null) {
+                            $strs=explode("/",$draw_odd);
+                            $draw_odd=(doubleval($strs[0])+doubleval($strs[1]))/2;
+                        } else {
+                            $draw_odd=doubleval($draw_odd);
                         }
                     }
 
                     $alway_tag=$odd->children[4];
 
                     if(count($alway_tag->nodes)==0) {
-                        $alway_odd="-1";
+                        $alway_odd=-999;
                     } else {
                         $alway_odd=$alway_tag->nodes[0]->text();
                         if(strtoupper($alway_odd)=="CLOSED") {
-                            $alway_odd="-1";
+                            $alway_odd=-999;
+                        } elseif(strpos($alway_odd,'/')!=null) {
+                            $strs=explode("/",$alway_odd);
+                            $alway_odd=(doubleval($strs[0])+doubleval($strs[1]))/2;
+                        } else {
+                            $alway_odd=doubleval($alway_odd);
                         }
                     }
                     $status_tag=$odd->children[6];
