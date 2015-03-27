@@ -1,8 +1,10 @@
 <?php
 $state_ch=array(
-        0=>"Postp.",1=>"Pause",2=>"Abd",
-        3=>"<font color=green>Pend.</font>",
-        4=>"Cancel",
+        0=>"<font color=red>Postp.</font>",
+        1=>"<font color=red>Pause</font>",
+        2=>"<font color=red>Abd</font>",
+        3=>"<font color=red>Pend.</font>",
+        4=>"<font color=red>Cancel</font>",
         13=>"<b>FT</b>",
         14=>"&nbsp",15=>"Part1",
         16=>"<font color=blue>HT</font>",
