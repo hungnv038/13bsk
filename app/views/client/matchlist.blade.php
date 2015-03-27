@@ -13,14 +13,14 @@ $state_ch=array(
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th style="width:10%;">Giải đấu </th>
-        <th style="width:10%;">Thời gian </th>
-        <th style="width:10%;">Tình trạng </th>
-        <th style="width:25%;">Đội nhà </th>
-        <th style="width:5%;">Tỉ số</th>
-        <th style="width:25%;">Đội khách </th>
-        <th style="width:10%;">H-T </th>
-        <th style="width:5%;">Dữ liệu </th>
+        <th style="width:10%; text-align: center">Giải đấu </th>
+        <th style="width:10%; text-align: center">Thời gian </th>
+        <th style="width:10%; text-align: center">Tình trạng </th>
+        <th style="width:25%; text-align: right">Đội nhà </th>
+        <th style="width:5%; text-align: center">Tỉ số</th>
+        <th style="width:25%; text-align: left">Đội khách </th>
+        <th style="width:10%; text-align: center">H-T </th>
+        <th style="width:5%; text-align: center">Dữ liệu </th>
     </tr>
     </thead>
     <tbody>
@@ -72,7 +72,7 @@ $state_ch=array(
         }
         ?>
         <tr>
-            <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center">
+            <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center" title="{{$match->name}}">
                 {{$match->code}}
             </td>
             <td style="text-align: center">{{$start_time}}</td>
