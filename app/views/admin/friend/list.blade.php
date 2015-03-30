@@ -9,7 +9,7 @@
                 <th style="width:20%;text-align:left;">Friend Token</th>
             </tr>
         @foreach($users as $user)
-            <tr>
+            <tr class="warning">
                 <td style="width:20%;text-align:right;">
                     <div>{{$user->friend_access_token}}</div>
                 </td>

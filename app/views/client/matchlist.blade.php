@@ -26,6 +26,16 @@ $state_ch=array(
     <tbody>
     @foreach($matchs as $match)
         <?php
+        $classtr="info";
+        if(array_key_exists($match->id,$status)) {
+            if($status[$match->id]==3) {
+                $classtr="danger";
+            }elseif($status[$match->id]==2) {
+                $classtr="warning";
+            } else {
+                $classtr="info";
+            }
+        }
 
         if(intval($match->h_read_card)!=0) $h_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->h_read_card.".gif'>"; else $h_redcard = "";
         if(intval($match->g_read_card)!=0) $g_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->g_read_card.".gif'>"; else  $g_redcard = "";
@@ -71,7 +81,7 @@ $state_ch=array(
             $time_color=$state_ch[$match->status+14];
         }
         ?>
-        <tr>
+        <tr class="{{$classtr}}">
             <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center" title="{{$match->name}}">
                 {{$match->code}}
             </td>

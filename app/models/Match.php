@@ -64,5 +64,14 @@ class Match extends DBAccess {
         return $results;
     }
 
+    public function getMatchStatus() {
+        $sql="SELECT match_id,status_color FROM football.match_rule_status
+                group by match_id
+                order by status_color desc";
+        $results=DBConnection::read()->select($sql);
+
+        return $results;
+    }
+
 
 }

@@ -12,7 +12,8 @@ class ClientViewController extends BaseController{
     }
     public function getMatchsData() {
         $matchs=Match::getInstance()->getAllMatchsInTime();
-        echo  View::make('client.matchlist',array('matchs'=>$matchs));
+        $match_status=Match::getInstance()->getMatchStatus();
+        echo  View::make('client.matchlist',array('matchs'=>$matchs,'status'=>$match_status));
     }
     public function getSettingView() {
         return View::make('client.settings');
