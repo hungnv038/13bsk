@@ -33,7 +33,7 @@ $state_ch=array(
             }elseif($status[$match->id]==2) {
                 $classtr="warning";
             } else {
-                $classtr="info";
+                $classtr="success";
             }
         }
 
