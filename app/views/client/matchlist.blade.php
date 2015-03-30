@@ -94,8 +94,8 @@ $state_ch=array(
             <td style="text-align: left"><?php echo $match->g_team; echo $g_yellowcard; echo $g_redcard;?></td>
             <td style="text-align: center">{{$ht_score}}</td>
             <td style="text-align: center">
-                @if($match->have_odd)
-                    <a href="{{$match->odd_link}}" target="_blank"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
+                @if($match->have_odd && strlen($match->odd_link)>0)
+                    <a href="<?php echo $match->odd_link;?>" target="_blank"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
                 @endif
             </td>
         </tr>
