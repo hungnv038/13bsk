@@ -137,4 +137,11 @@ class BackgroundProcessController extends BaseController {
         }
         return;
     }
+    public function deleteMatchs() {
+        $sql="delete from matchs where to_days(now())-to_days(time_1)>=2";
+        DBConnection::write()->delete($sql);
+
+        $sql1="delete from odds where to_days(now())-to_days(created_at)>=2";
+        DBConnection::write()->delete($sql1);
+    }
 }

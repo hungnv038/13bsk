@@ -49,6 +49,9 @@ Route::get('/cron','BackgroundProcessController@cron');
 Route::get('/background/updateodd','OddController@updateOdd');
 
 
+Route::get('/background/matchs/delete','BackgroundProcessController@deleteMatchs');
+
+
 
 // PAGES
 
