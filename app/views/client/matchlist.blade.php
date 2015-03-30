@@ -95,7 +95,7 @@ $state_ch=array(
             <td style="text-align: center">{{$ht_score}}</td>
             <td style="text-align: center">
                 @if($match->have_odd)
-                    <a href="{{$match->odd_link}}"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
+                    <a href="{{$match->odd_link}}" target="_blank"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
                 @endif
             </td>
         </tr>
