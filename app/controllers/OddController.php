@@ -192,4 +192,107 @@ class OddController extends BaseController{
             ResponseBuilder::error($e);
         }
     }
+    public function updateMatchStatus()
+    {
+        $rules=Rules::getInstance()->getAllObjects();
+        $array_rules=array();
+
+        $minutes=array();
+        $odds=array();
+
+        foreach ($rules as $rule) {
+            $array_rules[$rule->id]=$rule;
+            $odds[]=$rule->start_odd+$rule->after_odd;
+
+            $minutes[]=$rule->check_on_minute;
+            $minutes[]=$rule->check_on_minute-3;
+            $minutes[]=$rule->check_on_minute-2;
+            $minutes[]=$rule->check_on_minute-1;
+            $minutes[]=$rule->check_on_minute+1;
+            $minutes[]=$rule->check_on_minute+2;
+            $minutes[]=$rule->check_on_minute+3;
+        }
+
+        // get all matchs are ok with start_odd value
+        $sql="select odds.*,rules.id as rule_id from odds
+                inner join rules on rules.start_odd = odds.draw
+                where  time in (1,2,3,4,5) and type=2
+                group by match_id,rule_id";
+        $result1=DBConnection::read()->select($sql);
+
+        $start_odds_matchs=array();
+
+        foreach($result1 as $item) {
+            if(!array_key_exists($item->rule_id,$start_odds_matchs)) {
+                $start_odds_matchs[$item->rule_id]=array();
+            }
+            $start_odds_matchs[$item->rule_id][]=$item->match_id;
+        }
+
+        // get all matchs are ok with after_odds
+        $minutes=array_unique($minutes);
+
+        $sql2="select odds.*,rules.id as rule_id from odds
+                inner join rules on rules.after_odd +rules.size >= odds.draw and rules.after_odd -rules.size <= odds.draw
+                where  time in (".implode(",",$minutes).") and type=2
+                group by match_id,rule_id";
+
+        $result2=DBConnection::read()->select($sql2);
+
+        $after_odds_matchs=array();
+
+        foreach($result2 as $item) {
+            if(!array_key_exists($item->rule_id,$after_odds_matchs)) {
+                $after_odds_matchs[$item->rule_id]=array();
+            }
+            $after_odds_matchs[$item->rule_id][]=$item->match_id;
+        }
+
+        $finals=array();
+
+
+        // start get intersection between start and after odd to get final result
+        foreach ($array_rules as $rule) {
+            if(array_key_exists($rule->id,$start_odds_matchs) &&
+                array_key_exists($rule->id,$after_odds_matchs)) {
+
+                $start_matchs=$start_odds_matchs[$rule->id];
+                $after_matchs=$after_odds_matchs[$rule->id];
+
+                $final=array_intersect($start_matchs,$after_matchs);
+
+                if(count($final)>0) {
+                    $finals[$rule->id]=$final;
+                }
+
+            } else {
+                continue;
+            }
+        }
+
+        if(count($finals)==0) return;
+        // save data to server.
+        //delete all old data
+        DBConnection::write()->delete("delete from match_rule_status");
+
+        $status=array();
+
+        foreach ($finals as $key => $match_id) {
+            $rule=$array_rules[$key];
+            $status[]=array(
+                'match_id'=>$match_id,
+                'rule_id'=>$key,
+                'created_at'=>array('now()'),
+                'status_color'=>$rule->color
+            );
+        }
+
+        if(count($status)>0) {
+            Match_Rule_Status::getInstance()->inserts(
+                array('match_id',
+                    'rule_id',
+                    'created_at',
+                    'status_color'),$status);
+        }
+    }
 }

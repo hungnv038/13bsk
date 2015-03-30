@@ -271,4 +271,10 @@ class DBAccess {
         $result=DBConnection::read()->select($sql);
         return $result;
     }
+    public function getAllObjects(){
+        $sql="select * from {$this->table_name}" ;
+
+        $result=DBConnection::read()->select($sql);
+        return $result;
+    }
 }
