@@ -81,7 +81,7 @@ $state_ch=array(
             $time_color=$state_ch[$match->status+14];
         }
         ?>
-        <tr class="{{$classtr}}">
+        <tr class="{{$classtr}}" id="{{$match->id}}">
             <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center" title="{{$match->name}}">
                 {{$match->code}}
             </td>
