@@ -211,6 +211,10 @@ class OddController extends BaseController{
             $minutes[]=$rule->check_on_minute+1;
             $minutes[]=$rule->check_on_minute+2;
             $minutes[]=$rule->check_on_minute+3;
+
+            if($rule->check_on_minute==45) {
+                $minutes[]=-2;
+            }
         }
 
         // get all matchs are ok with start_odd value
