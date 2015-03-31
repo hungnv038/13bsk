@@ -103,9 +103,16 @@ class OddController extends BaseController{
                     $score_tag=$odd->children[1];
 
                     if(count($score_tag->nodes)==0) {
-                        $score="-1";
+                        $score1=0;$score2=0;
                     } else {
                         $score=$score_tag->nodes[0]->text();
+                        if(strlen($score)>=3 && strpos($score,"-")!=false) {
+                            $scores=explode("-",$score);
+                            $score1=intval(trim($scores[0]));
+                            $score2=intval(trim($scores[1]));
+                        } else {
+                            $score1=0;$score2=0;
+                        }
                     }
 
                     $home_tag=$odd->children[2];
@@ -166,7 +173,8 @@ class OddController extends BaseController{
                         'match_id'=>$match_id,
                         'created_at'=>array('now()'),
                         'time'=>$minute,
-                        'score'=>$score,
+                        'score1'=>$score1,
+                        'score2'=>$score2,
                         'home'=>$home_odd,
                         'draw'=>$draw_odd,
                         'away'=>$alway_odd,
@@ -179,7 +187,7 @@ class OddController extends BaseController{
             if(count($odd_data)>0) {
                 Odd::getInstance()->inserts(
                     array(
-                        'match_id','created_at','time','score','home','draw','away','status','type'
+                        'match_id','created_at','time','score1','score2','home','draw','away','status','type'
                     ),$odd_data);
 
                 Match::getInstance()->update(
@@ -220,7 +228,7 @@ class OddController extends BaseController{
         // get all matchs are ok with start_odd value
         $sql="select odds.*,rules.id as rule_id from odds
                 inner join rules on rules.start_odd = odds.draw
-                where  time in (0,1,2,3,4,5) and type=2
+                where  time in (0,1,2,3,4,5) and odds.type=rules.type
                 group by match_id,rule_id";
         $result1=DBConnection::read()->select($sql);
 
@@ -238,7 +246,7 @@ class OddController extends BaseController{
 
         $sql2="select odds.*,rules.id as rule_id from odds
                 inner join rules on rules.after_odd +rules.size >= odds.draw and rules.after_odd -rules.size <= odds.draw
-                where  time in (".implode(",",$minutes).") and type=2
+                where  time in (".implode(",",$minutes).") and odds.type=rules.type
                 group by match_id,rule_id";
 
         $result2=DBConnection::read()->select($sql2);
