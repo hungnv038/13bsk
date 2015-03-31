@@ -244,7 +244,7 @@ class OddController extends BaseController{
         // get all matchs are ok with after_odds
         $minutes=array_unique($minutes);
 
-        $sql2="select odds.*,rules.id as rule_id,rules.type as rule_type,rules.after_odd,
+        $sql2="select odds.*,rules.id as rule_id,rules.type as rule_type,rules.after_odd
                 from odds
                 inner join rules on rules.after_odd +rules.size >= odds.draw and rules.after_odd -rules.size <= odds.draw
                 where  time in (".implode(",",$minutes).") and odds.type=rules.type
