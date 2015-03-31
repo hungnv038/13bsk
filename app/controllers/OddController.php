@@ -243,7 +243,7 @@ class OddController extends BaseController{
 
         $sql2="select odds.*,rules.id as rule_id,rules.type as rule_type,rules.after_odd
                 from odds
-                inner join rules on rules.after_odd +rules.size >= odds.draw and rules.after_odd -rules.size <= odds.draw
+                inner join rules on (odds.type<=2 and rules.after_odd = odds.draw) or (odds.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw)
                 where  time in (".implode(",",$minutes).") and odds.type=rules.type
                 group by match_id,rule_id";
 
@@ -254,11 +254,6 @@ class OddController extends BaseController{
         foreach($result2 as $item) {
             if(!array_key_exists($item->rule_id,$after_odds_matchs)) {
                 $after_odds_matchs[$item->rule_id]=array();
-            }
-            if($item->rule_type==3) {
-                if($item->after_odd+$item->score1+$item->score2!=$item->draw) {
-                    continue;
-                }
             }
             $after_odds_matchs[$item->rule_id][]=$item->match_id;
         }
