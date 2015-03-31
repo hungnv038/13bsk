@@ -70,7 +70,11 @@ class Match extends DBAccess {
                 order by status_color desc";
         $results=DBConnection::read()->select($sql);
 
-        return $results;
+        $status=array();
+        foreach ($results as $item) {
+            $status[$item->match_id]=$item->status_color;
+        }
+        return $status;
     }
 
 

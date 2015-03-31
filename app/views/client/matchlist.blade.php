@@ -26,7 +26,7 @@ $state_ch=array(
     <tbody>
     @foreach($matchs as $match)
         <?php
-        $classtr="info";
+        $classtr="success";
         if(array_key_exists($match->id,$status)) {
             if($status[$match->id]==3) {
                 $classtr="danger";
