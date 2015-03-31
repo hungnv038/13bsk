@@ -27,7 +27,10 @@ $state_ch=array(
     @foreach($matchs as $match)
         <?php
         $classtr="success";
-        if(array_key_exists($match->id,$status)) {
+        if(intval($match->h_read_card)!=0 ||intval($match->g_read_card)!=0 )
+        {
+            $classtr="success";
+        } else if(array_key_exists($match->id,$status)) {
             if($status[$match->id]==3) {
                 $classtr="danger";
             }elseif($status[$match->id]==2) {
