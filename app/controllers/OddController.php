@@ -212,7 +212,7 @@ class OddController extends BaseController{
         // get all matchs are ok with start_odd value
         $sql="select odds.*,rules.id as rule_id from odds
                 inner join rules on rules.start_odd = odds.draw
-                where  time in (-1,0,1) and odds.type=rules.type
+                where  time in (-1,0,1) and odds.type=rules.data_type
                 group by match_id,rule_id
                 order by time, odds.id desc";
         $result1=DBConnection::read()->select($sql);
@@ -228,8 +228,11 @@ class OddController extends BaseController{
 
         $sql2="select odds.*,rules.id as rule_id,rules.type as rule_type,rules.after_odd
                 from odds
-                inner join rules on (odds.type<=2 and rules.after_odd = odds.draw) or (odds.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw)
-                where  time in (45,-2) and odds.type=rules.type
+                inner join rules on
+                (odds.type<=2 and rules.after_odd = odds.draw) or
+                (odds.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw) OR
+                (odds.type=4 and abs(rules.after_odd) < abs(odds.draw))
+                where  time in (45,-2) and odds.type=rules.data_type
                 group by match_id, rule_id
                 order by time desc";
 
