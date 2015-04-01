@@ -1,4 +1,4 @@
-var server_path="/13bsk/public/matchs";
+var server_path="/football/matchs";
 var http=require("http");
 http.createServer(function(request,response) {
     var data = "";
