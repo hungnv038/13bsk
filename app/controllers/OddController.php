@@ -229,9 +229,9 @@ class OddController extends BaseController{
         $sql2="select odds.*,rules.id as rule_id,rules.type as rule_type,rules.after_odd
                 from odds
                 inner join rules on
-                (odds.type<=2 and rules.after_odd = odds.draw) or
-                (odds.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw) OR
-                (odds.type=4 and abs(rules.after_odd) < abs(odds.draw))
+                (rules.type<=2 and rules.after_odd = odds.draw) or
+                (rules.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw) OR
+                (rules.type=4 and abs(rules.after_odd) < abs(odds.draw))
                 where  time in (45,-2) and odds.type=rules.data_type
                 group by match_id, rule_id
                 order by time desc";

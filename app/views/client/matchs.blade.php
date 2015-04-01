@@ -7,15 +7,13 @@
         var urlApi = '<?php echo URL::to('/') ?>/';
 
         $(document).ready(function () {
+            $('#result').html("Loading....");
             refresh();
         });
         function refresh() {
             $.ajax({
                 url: urlApi + 'matchs/data',
                 type: "GET",
-                beforeSend: function() {
-                    $('#result').html('Loading...');
-                },
                 success:function(result) {
                     $('#result').html(result);
                 },
