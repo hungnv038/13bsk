@@ -205,21 +205,8 @@ class OddController extends BaseController{
         $rules=Rules::getInstance()->getAllObjects();
         $array_rules=array();
 
-        $minutes=array();
-        $odds=array();
-
         foreach ($rules as $rule) {
             $array_rules[$rule->id]=$rule;
-            $odds[]=$rule->start_odd+$rule->after_odd;
-
-            $minutes[]=$rule->check_on_minute;
-            $minutes[]=$rule->check_on_minute-3;
-            $minutes[]=$rule->check_on_minute-2;
-            $minutes[]=$rule->check_on_minute-1;
-
-            if($rule->check_on_minute==45) {
-                $minutes[]=-2;
-            }
         }
 
         // get all matchs are ok with start_odd value
@@ -239,13 +226,10 @@ class OddController extends BaseController{
             $start_odds_matchs[$item->rule_id][]=$item->match_id;
         }
 
-        // get all matchs are ok with after_odds
-        $minutes=array_unique($minutes);
-
         $sql2="select odds.*,rules.id as rule_id,rules.type as rule_type,rules.after_odd
                 from odds
                 inner join rules on (odds.type<=2 and rules.after_odd = odds.draw) or (odds.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw)
-                where  time in (".implode(",",$minutes).") and odds.type=rules.type
+                where  time in (45,-2) and odds.type=rules.type
                 group by match_id, rule_id
                 order by time desc";
 
