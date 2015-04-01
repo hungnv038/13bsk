@@ -45,6 +45,8 @@ Route::match(array('GET', 'POST'), '/setApiDoc','LogController@setApiDoc');
 Route::get('/matchs/data','ClientViewController@getMatchsData');
 Route::get('/matchs','ClientViewController@getMatchsView');
 
+Route::get('/matchs/odd','ClientViewController@getMatchOdd');
+
 
 
 

@@ -18,5 +18,8 @@ class ClientViewController extends BaseController{
     public function getSettingView() {
         return View::make('client.settings');
     }
+    public function getMatchOdd() {
+      return View::make('client.oddinfo');
+    }
 
 }
