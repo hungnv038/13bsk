@@ -81,7 +81,7 @@ class OddController extends BaseController{
 
                 $data_number_rows[$type]=count($tabls->children)-2;
 
-                for($i=2;$i<$new_rows;$i++) {
+                for($i=$new_rows-1;$i>=2;$i--) {
                     $odd=$tabls->children[$i];
 
                     $minute_tag=$odd->children[0];
@@ -162,6 +162,9 @@ class OddController extends BaseController{
                             $alway_odd=doubleval($alway_odd);
                         }
                     }
+
+                    $update_tag=$odd->children[5];
+
                     $status_tag=$odd->children[6];
 
                     if(count($status_tag->nodes)==0) {

@@ -33,7 +33,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr class="active" style="background-color: #2a6496;">
                             <td>Thời gian</td>
                             <td>Tỉ số </td>
                             <td>Chủ </td>
@@ -75,7 +75,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <table class="table table-bordered">
                     <thead>
-                    <tr>
+                    <tr class="active">
                         <td>Thời gian</td>
                         <td>Tỉ số </td>
                         <td>Chủ </td>
@@ -117,7 +117,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <table class="table table-bordered">
                     <thead>
-                    <tr>
+                    <tr class="active">
                         <td>Thời gian</td>
                         <td>Tỉ số </td>
                         <td>Chủ </td>
