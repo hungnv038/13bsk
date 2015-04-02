@@ -212,12 +212,29 @@ class OddController extends BaseController{
             $array_rules[$rule->id]=$rule;
         }
 
+        $first_ids=array();
+        // get all id have time=0 or 1
+        $sqlid1="select id from odds where time in (0,1)";
+        $resultid1=DBConnection::read()->select($sqlid1);
+        foreach ($resultid1 as $item1) {
+            $first_ids[]=$item1->id;
+        }
+
+
+        // get all max id have time =-1
+        $sqlid2="select max(id) as id from odds where time=-1 group by match_id,type";
+        $resultid2=DBConnection::read()->select($sqlid2);
+
+        foreach ($resultid2 as $item2) {
+            $first_ids[]=$item2->id;
+        }
+
+
         // get all matchs are ok with start_odd value
         $sql="select odds.*,rules.id as rule_id from odds
                 inner join rules on rules.start_odd = odds.draw
-                where  time in (-1,0,1) and odds.type=rules.data_type
-                group by match_id,rule_id
-                order by time, odds.id desc";
+                where  odds.id in (".implode(",",$first_ids).") and odds.type=rules.data_type
+                group by match_id,rule_id";
         $result1=DBConnection::read()->select($sql);
 
         $start_odds_matchs=array();

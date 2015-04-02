@@ -29,7 +29,7 @@ class Match extends DBAccess {
         $match_objs=$field_values['objs'];
 
         $keys=array('h_goal','g_goal','h_read_card','g_read_card','h_yellow_card','g_yellow_card',
-            'status','ht_h_goal','ht_g_goal','have_odd','time_2');
+            'status','ht_h_goal','ht_g_goal','time_2');
 
         //$keys=array('h_goal','g_goal');
 
