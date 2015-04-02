@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">Crown 1X2 Odds</div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
@@ -67,7 +67,7 @@
 
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">Crown Handicap Odds</div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
@@ -134,7 +134,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">Crown Over/Under Odds</div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
