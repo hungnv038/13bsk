@@ -25,7 +25,7 @@
             setTimeout("refresh()",1000*60);
         }
     </script>
-    <h3 style="width: 100%; text-align: center; color: red">{{$title}}</h3>
+    <h3 style="width: 100%; text-align: center; color: blue">{{$title}}</h3>
 
     <div id="result">
 
