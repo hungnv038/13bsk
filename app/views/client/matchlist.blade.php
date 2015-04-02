@@ -12,7 +12,7 @@ $state_ch=array(
 ?>
 <table class="table table-striped table-bordered">
     <thead>
-    <tr>
+    <tr class="active">
         <th style="width:10%; text-align: center">Giải đấu </th>
         <th style="width:10%; text-align: center">Thời gian </th>
         <th style="width:10%; text-align: center">Tình trạng </th>
@@ -97,8 +97,8 @@ $state_ch=array(
             <td style="text-align: left"><?php echo $match->g_team; echo $g_yellowcard; echo $g_redcard;?></td>
             <td style="text-align: center">{{$ht_score}}</td>
             <td style="text-align: center">
-                @if($match->have_odd && strlen($match->odd_link)>0)
-                    <a href="<?php echo $match->odd_link;?>" target="_blank"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
+                @if(in_array($match->id,$exist_odds))
+                    <a href="<?php echo URL::to("/");?>/matchs/<?php echo $match->id?>/odds/view" target="_blank"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
                 @endif
             </td>
         </tr>

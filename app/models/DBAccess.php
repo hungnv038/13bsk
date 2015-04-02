@@ -214,8 +214,8 @@ class DBAccess {
         }
     }
 
-    public function getOneObjectByField($field) {
-        $objects=$this->getObjectsByField($field);
+    public function getOneObjectByField($field,$orderBys=null) {
+        $objects=$this->getObjectsByField($field,$orderBys);
         if(count($objects)>0) {
             return $objects[0];
         } else {
@@ -228,7 +228,7 @@ class DBAccess {
      * @throws Exception : throw exception if this method is not implement by child class
      * @return : array of Objects
      */
-    public  function  getObjectsByField($fields)
+    public  function  getObjectsByField($fields,$orderBys=null)
     {
         $query=array();
 
@@ -240,6 +240,10 @@ class DBAccess {
             $sql="select * from {$this->table_name}";
         } else {
             $sql="select * from {$this->table_name} where ".implode(" and ",$query);
+        }
+
+        if($orderBys!=null) {
+            $sql.=" order by ".implode(",",$orderBys);
         }
 
         $result=DBConnection::read()->select($sql);
@@ -255,7 +259,7 @@ class DBAccess {
      * @return : array of objects
      * @throws Exception : throw exception if this function has not yet implemented by child class
      */
-    public function getObjectsByFields($fields)
+    public function getObjectsByFields($fields,$orderBys=null)
     {
         if(!is_array($fields)) {
             throw new Exception("Invalid input in getObjectsByFields from {$this->table_name} object");
@@ -267,6 +271,9 @@ class DBAccess {
         }
 
         $sql="select * from {$this->table_name} where ".implode(" and ",$query);
+        if($orderBys!=null) {
+            $sql.=" order by ".implode(",",$orderBys);
+        }
 
         $result=DBConnection::read()->select($sql);
         return $result;
