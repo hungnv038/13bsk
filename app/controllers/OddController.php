@@ -251,7 +251,8 @@ class OddController extends BaseController{
                 inner join rules on
                 (rules.type<=2 and rules.after_odd = odds.draw) or
                 (rules.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw) OR
-                (rules.type=4 and abs(rules.after_odd) < abs(odds.draw) and abs(odds.draw) !=999)
+                (rules.type=4 and abs(rules.after_odd) < abs(odds.draw) and abs(odds.draw) !=999) or
+                (rules.type=5 and rules.after_odd < odds.draw)
                 where  time in (45,-2) and odds.type=rules.data_type
                 group by match_id, rule_id
                 order by time desc";

@@ -60,10 +60,9 @@
                 <li class="{{Request::segment(1) == 'matchs' ? 'active' : ''}}">
                     <a href="{{URL::to('/matchs')}}">Matchs</a>
                 </li>
-                <li>
+                <li class="{{Request::segment(1) == 'settings' ? 'active' : ''}}">
                     <a href="{{URL::to('/settings')}}">Settings</a>
                 </li>
-
             </ul>
         </div>
     </nav>
