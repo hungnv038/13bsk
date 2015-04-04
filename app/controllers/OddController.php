@@ -297,14 +297,19 @@ class OddController extends BaseController{
 
         $status=array();
 
-        foreach ($finals as $key => $match_id) {
+        foreach ($finals as $key => $matchs) {
             $rule=$array_rules[$key];
-            $status[]=array(
-                'match_id'=>$match_id,
-                'rule_id'=>$key,
-                'created_at'=>array('now()'),
-                'status_color'=>$rule->color
-            );
+            if(!is_array($matchs)) {
+                $matchs=array($matchs);
+            }
+            foreach ($matchs as $match_id) {
+                $status[]=array(
+                    'match_id'=>$match_id,
+                    'rule_id'=>$key,
+                    'created_at'=>array('now()'),
+                    'status_color'=>$rule->color
+                );
+            }
         }
 
         if(count($status)>0) {
