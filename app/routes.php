@@ -46,6 +46,12 @@ Route::get('/matchs/data','ClientViewController@getMatchsData');
 Route::get('/matchs','ClientViewController@getMatchsView');
 
 Route::get('/settings','SettingController@getSettingView');
+Route::get('/settings/data/{data_type}','SettingController@getSettingRules');
+
+Route::get('/rules/{id}/editview','SettingController@getEditRuleView');
+Route::post('/rules/{id}/delete','RuleController@delete');
+Route::put('/rules/{id}/edit','RuleController@edit');
+Route::post('/rules','RuleController@add');
 
 Route::get('/matchs/{match_id}/odds/view','ClientViewController@getMatchOddView');
 Route::get('/matchs/{match_id}/odds/data','ClientViewController@getMatchOddData');

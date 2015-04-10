@@ -8,6 +8,18 @@
 
 class SettingController extends BaseController{
     public function getSettingView() {
-        return View::make("client.setting");
+
+        $cnts=Rules::getInstance()->getRuleCount();
+        return View::make("client.setting",array('cnts'=>$cnts));
+    }
+    public function getSettingRules($type) {
+        $rules=Rules::getInstance()->getObjectsByField(array('data_type'=>$type));
+        return View::make("client.ruledata",array('rules'=>$rules));
+    }
+    public function getEditRuleView($rule_id) {
+        $rule=Rules::getInstance()->getOneObjectByField(array('id'=>$rule_id));
+        if($rule!=null) {
+            return View::make('client.edit_rule',array('rule'=>$rule));
+        }
     }
 }
