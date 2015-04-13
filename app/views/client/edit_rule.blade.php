@@ -9,8 +9,6 @@ if($rule_type==2) {
     $start_type=HtmlHelper::TYPE_THREE_START;
     $after_type=HtmlHelper::TYPE_THREE_AFTER;
 }
-
-        var_dump($rule);
 $after_odd = $rule->after_odd;
 if ($rule->type == 4) {
     $after_odd = -99;
