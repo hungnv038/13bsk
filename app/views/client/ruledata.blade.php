@@ -25,8 +25,10 @@ if($rules==null ||($rules!=null && count($rules)==0)) {
         } else {
             $color="warning";
         }
-                if($rule->type==4 || $rule->type==5) {
-                    $after_time=$after_time='<font color="red">'.'Tăng chấp'.'</font>';;
+                if($rule->type==4) {
+                    $after_time='<font color="red">'.'Tăng chấp'.'</font>';;
+                } elseif($rule->type==5) {
+                    $after_time='<font color="blue">'.$rule->after_odd.'</font><font color="red"> Trở lên </font>';;
                 }
         ?>
         <tr>

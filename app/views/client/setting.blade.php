@@ -1,9 +1,9 @@
 <?php
-
 ?>
 @extends('admin.layouts.client')
 @section('header')
     <title>Odd Settings</title>
+
 @stop
 @section('content')
     <div class="row">
@@ -37,8 +37,7 @@
                 <div class="panel-heading">
                     Danh sách các luật
                     <div class="btn-group navbar-right" role="group" aria-label="...">
-                        <button type="button" class="btn btn-small btn-sm btn-success"
-                                data-toggle="modal" data-target="#addrule" id="btnAdd"><span
+                        <button type="button" class="btn btn-small btn-sm btn-success" id="btnAdd" onclick="SettingModule.showAddDialog(this)"><span
                                     class="fa fa-plus"></span> Tạo mới
                         </button>
                     </div>
@@ -59,50 +58,8 @@
                             </button>
                             <h4 class="modal-title" id="myModalLabel">Tạo mới luật </h4>
                         </div>
-                        <div class="modal-body">
-                            <span id="spanError1" style="background-color: #ce8483"></span>
+                        <div class="modal-body" id="newbody">
 
-                            <form action="" id="newResource" name="newResource" class=""
-                                  enctype="multipart/form-data">
-
-                                <fieldset>
-                                    <div class="control-group">
-                                        <label class="control-label" for="multiSelect">Đầu trận
-                                            :</label>
-
-                                        <div class="controls">
-                                            <select id="start_odd"
-                                                    class="form-control">
-                                                <?php HtmlHelper::makeSelection(); ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="control-group">
-                                        <label class="control-label" for="multiSelect">45 + HT
-                                            :</label>
-
-                                        <div class="controls">
-                                            <select id="after_odd"
-                                                    class="form-control">
-                                                <?php HtmlHelper::makeSelection(5, true); ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label" for="rule_color">Báo màu
-                                            :</label>
-                                        <select id="rule_color" class="form-control">
-                                            <option value="2">Vàng</option>
-                                            <option value="3">Đỏ</option>
-                                        </select>
-                                    </div>
-
-                                </fieldset>
-
-                            </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default"

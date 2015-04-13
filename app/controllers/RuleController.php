@@ -29,16 +29,16 @@ class RuleController extends BaseController{
             $type=$data_type;
 
             if($after_odd==-99) {
-                if($data_type==2) {
-                    $after_odd=$start_odd;
-                    $type=4;
-                } else {
-                    $after_odd=$start_odd;
-                    $type=5;
-                }
+                $after_odd=$start_odd;
+                $type=4;
+            }
+            if($after_odd<0 and $data_type==3) {
+                $type=5;
+                $after_odd=abs($after_odd);
             }
             Rules::getInstance()->update(
-                array(  'start_odd' =>$start_odd,
+                array(
+                    'start_odd' =>$start_odd,
                     'after_odd' =>$after_odd,
                     'type'      =>$type,
                     'data_type' =>$data_type,
@@ -59,13 +59,12 @@ class RuleController extends BaseController{
             $type=$data_type;
 
             if($after_odd==-99) {
-                if($data_type==2) {
-                    $after_odd=$start_odd;
-                    $type=4;
-                } else {
-                    $after_odd=$start_odd;
-                    $type=5;
-                }
+                $after_odd=$start_odd;
+                $type=4;
+            }
+            if($after_odd<0 and $data_type==3) {
+                $type=5;
+                $after_odd=abs($after_odd);
             }
             Rules::getInstance()->insert(
                 array(  'start_odd' =>$start_odd,

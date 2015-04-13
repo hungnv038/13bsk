@@ -17,9 +17,14 @@ class SettingController extends BaseController{
         return View::make("client.ruledata",array('rules'=>$rules));
     }
     public function getEditRuleView($rule_id) {
+        $rule_type=InputHelper::getInput('rule_type',true);
         $rule=Rules::getInstance()->getOneObjectByField(array('id'=>$rule_id));
         if($rule!=null) {
-            return View::make('client.edit_rule',array('rule'=>$rule));
+            return View::make('client.edit_rule',array('rule'=>$rule,'rule_type'=>$rule_type));
         }
+    }
+    public function getAddRuleView() {
+        $rule_type=InputHelper::getInput('rule_type',true);
+        return  View::make('client.add_rule',array('rule_type'=>$rule_type));
     }
 }

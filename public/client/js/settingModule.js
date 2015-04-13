@@ -36,6 +36,7 @@ var SettingModule = {
         $("#editrule").modal('show');
         $.ajax({
             url: this.urlApi+'rules/'+resource_id+'/editview',
+            data: {rule_type:this.rule_type_id},
             type: "GET",
             beforeSend: function () {
                 $('#editbody').html("Đang tải dữ liệu...");
@@ -103,6 +104,23 @@ var SettingModule = {
                 }
             });
         }
+    },
+    showAddDialog: function (myself) {
+        $("#addrule").modal('show');
+        $.ajax({
+            url: this.urlApi+'rules/addView',
+            data: {rule_type:this.rule_type_id},
+            type: "GET",
+            beforeSend: function () {
+                $('#newbody').html("Đang tải dữ liệu...");
+            },
+            success: function (result) {
+                $('#newbody').html(result);
+            },
+            error: function (jqXHR) {
+                alert(jqXHR.responseText);
+            }
+        });
     },
     addRule: function (myself) {
         var that=this;

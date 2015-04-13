@@ -1,7 +1,21 @@
 <?php
+
+$start_type=HtmlHelper::TYPE_TWO_START;
+$after_type=HtmlHelper::TYPE_TWO_AFTER;
+if($rule_type==2) {
+    $start_type=HtmlHelper::TYPE_TWO_START;
+    $after_type=HtmlHelper::TYPE_TWO_AFTER;
+} elseif($rule_type==3) {
+    $start_type=HtmlHelper::TYPE_THREE_START;
+    $after_type=HtmlHelper::TYPE_THREE_AFTER;
+}
+
+        var_dump($rule);
 $after_odd = $rule->after_odd;
-if ($rule->type == 4 || $rule->type == 5) {
+if ($rule->type == 4) {
     $after_odd = -99;
+} elseif($rule->type==5) {
+    $after_odd=-$rule->after_odd;
 }
 ?>
 
@@ -16,7 +30,7 @@ if ($rule->type == 4 || $rule->type == 5) {
             <div class="controls">
                 <select id="start_odd_edit"
                         class="form-control">
-                    <?php HtmlHelper::makeSelection(5, false, $rule->start_odd); ?>
+                    <?php HtmlHelper::makeSelection(5, $start_type, $rule->start_odd); ?>
                 </select>
             </div>
         </div>
@@ -28,7 +42,7 @@ if ($rule->type == 4 || $rule->type == 5) {
             <div class="controls">
                 <select id="after_odd_edit"
                         class="form-control">
-                    <?php HtmlHelper::makeSelection(5, true, $after_odd); ?>
+                    <?php HtmlHelper::makeSelection(5, $after_type, $after_odd); ?>
                 </select>
             </div>
         </div>

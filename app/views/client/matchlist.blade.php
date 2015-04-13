@@ -1,4 +1,20 @@
 <?php
+
+
+use Symfony\Component\HttpFoundation\Cookie;
+$new_ids=array_keys($status);
+        if(isset($_COOKIE['match_ids'])) {
+            $reported_ids=$_COOKIE['match_ids'];
+            $reported_ids=json_decode($reported_ids);
+
+            $diff=array_diff($new_ids,$reported_ids);
+            if(count($diff)>0) {
+                $myAudioFile = URL::to("/")."/test.wav";
+                echo '<video controls autoplay name="media" hidden="true"><source src="'.$myAudioFile.'" type="audio/mpeg"></video>';
+            }
+        }
+        setcookie('match_ids',json_encode($new_ids),time() + (86400 * 30));
+
 $state_ch=array(
         0=>"<font color=red>Postp.</font>",
         1=>"<font color=red>Pause</font>",
