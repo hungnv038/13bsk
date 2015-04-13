@@ -214,7 +214,7 @@ class OddController extends BaseController{
 
         $first_ids=array();
         // get all id have time=0 or 1
-        $sqlid1="select id from odds where time in (0,1)";
+        $sqlid1="select id from odds where time in (0,1) and home >=0.7 and home <=1.2";
         $resultid1=DBConnection::read()->select($sqlid1);
         foreach ($resultid1 as $item1) {
             $first_ids[]=$item1->id;
@@ -222,7 +222,7 @@ class OddController extends BaseController{
 
 
         // get all max id have time =-1
-        $sqlid2="select max(id) as id from odds where time=-1 group by match_id,type";
+        $sqlid2="select max(id) as id from odds where time=-1 and home >=0.7 and home <=1.2 group by match_id,type";
         $resultid2=DBConnection::read()->select($sqlid2);
 
         foreach ($resultid2 as $item2) {
@@ -253,7 +253,7 @@ class OddController extends BaseController{
                 (rules.type=3 and rules.after_odd +odds.score1+odds.score2= odds.draw) OR
                 (rules.type=4 and abs(rules.after_odd) < abs(odds.draw) and abs(odds.draw) !=999) or
                 (rules.type=5 and rules.after_odd +odds.score1+odds.score2 <= odds.draw)
-                where  time in (45,-2) and odds.type=rules.data_type
+                where  time in (45,-2) and home >=0.7 and home <=1.2 and odds.type=rules.data_type
                 group by match_id, rule_id
                 order by time desc";
 

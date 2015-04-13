@@ -9,7 +9,7 @@ $new_ids=array_keys($status);
 
             $diff=array_diff($new_ids,$reported_ids);
             if(count($diff)>0) {
-                $myAudioFile = URL::to("/")."/test.wav";
+                $myAudioFile = URL::to("/")."/test.mp3";
                 echo '<video controls autoplay name="media" hidden="true"><source src="'.$myAudioFile.'" type="audio/mpeg"></video>';
             }
         }
