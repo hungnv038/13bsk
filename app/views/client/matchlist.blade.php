@@ -1,107 +1,126 @@
 <?php
-
+$settings = Settings::getAll();
 
 use Symfony\Component\HttpFoundation\Cookie;
-$new_ids=array_keys($status);
-        if(isset($_COOKIE['match_ids'])) {
-            $reported_ids=$_COOKIE['match_ids'];
-            $reported_ids=json_decode($reported_ids);
+$new_ids = array_keys($status);
+if (isset($_COOKIE['match_ids'])) {
+    $reported_ids = $_COOKIE['match_ids'];
+    $reported_ids = json_decode($reported_ids);
 
-            $diff=array_diff($new_ids,$reported_ids);
-            if(count($diff)>0) {
-                $myAudioFile = URL::to("/")."/test.mp3";
-                echo '<video controls autoplay name="media" hidden="true"><source src="'.$myAudioFile.'" type="audio/mpeg"></video>';
+    $diff = array_diff($new_ids, $reported_ids);
+
+    if (count($diff) > 0) {
+        $play_sound = false;
+        $yellow_sound=isset($settings['yellow_sound'])?$settings['yellow_sound']:0;
+        $red_sound=isset($settings['red_sound'])?$settings['red_sound']:0;
+        foreach ($diff as $new_match_id) {
+            if ($status[$new_match_id] == 2) {
+                if ($yellow_sound == 1) {
+                    $play_sound = true;
+                    break;
+                }
+            } elseif ($status[$new_match_id] == 3) {
+                if ($red_sound == 1) {
+                    $play_sound = true;
+                    break;
+                }
             }
         }
-        setcookie('match_ids',json_encode($new_ids),time() + (86400 * 30));
+        if ($play_sound) {
+            $myAudioFile = URL::to("/") . "/test.mp3";
+            echo '<video controls autoplay name="media" hidden="true"><source src="' . $myAudioFile . '" type="audio/mpeg"></video>';
+        }
+    }
+}
+setcookie('match_ids', json_encode($new_ids), time() + (86400 * 30));
 
-$state_ch=array(
-        0=>"<font color=red>Postp.</font>",
-        1=>"<font color=red>Pause</font>",
-        2=>"<font color=red>Abd</font>",
-        3=>"<font color=red>Pend.</font>",
-        4=>"<font color=red>Cancel</font>",
-        13=>"<b>FT</b>",
-        14=>"&nbsp",15=>"Part1",
-        16=>"<font color=blue>HT</font>",
-        17=>"Part2",18=>"Ot");
+$state_ch = array(
+        0 => "<font color=red>Postp.</font>",
+        1 => "<font color=red>Pause</font>",
+        2 => "<font color=red>Abd</font>",
+        3 => "<font color=red>Pend.</font>",
+        4 => "<font color=red>Cancel</font>",
+        13 => "<b>FT</b>",
+        14 => "&nbsp", 15 => "Part1",
+        16 => "<font color=blue>HT</font>",
+        17 => "Part2", 18 => "Ot");
 ?>
 <table class="table table-striped table-bordered">
     <thead>
     <tr class="active">
-        <th style="width:10%; text-align: center">Giải đấu </th>
-        <th style="width:10%; text-align: center">Thời gian </th>
-        <th style="width:10%; text-align: center">Tình trạng </th>
-        <th style="width:25%; text-align: right">Đội nhà </th>
+        <th style="width:10%; text-align: center">Giải đấu</th>
+        <th style="width:10%; text-align: center">Thời gian</th>
+        <th style="width:10%; text-align: center">Tình trạng</th>
+        <th style="width:25%; text-align: right">Đội nhà</th>
         <th style="width:5%; text-align: center">Tỉ số</th>
-        <th style="width:25%; text-align: left">Đội khách </th>
-        <th style="width:10%; text-align: center">H-T </th>
-        <th style="width:5%; text-align: center">Dữ liệu </th>
+        <th style="width:25%; text-align: left">Đội khách</th>
+        <th style="width:10%; text-align: center">H-T</th>
+        <th style="width:5%; text-align: center">Dữ liệu</th>
     </tr>
     </thead>
     <tbody>
     @foreach($matchs as $match)
         <?php
-        $classtr="success";
-        if(intval($match->h_read_card)!=0 ||intval($match->g_read_card)!=0 )
-        {
-            $classtr="success";
-        } else if(array_key_exists($match->id,$status)) {
-            if($status[$match->id]==3) {
-                $classtr="danger";
-            }elseif($status[$match->id]==2) {
-                $classtr="warning";
+        $classtr = "success";
+        if (intval($match->h_read_card) != 0 || intval($match->g_read_card) != 0) {
+            $classtr = "success";
+        } else if (array_key_exists($match->id, $status)) {
+            if ($status[$match->id] == 3) {
+                $classtr = "danger";
+            } elseif ($status[$match->id] == 2) {
+                $classtr = "warning";
             } else {
-                $classtr="success";
+                $classtr = "success";
             }
         }
 
-        if(intval($match->h_read_card)!=0) $h_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->h_read_card.".gif'>"; else $h_redcard = "";
-        if(intval($match->g_read_card)!=0) $g_redcard = "<img src='http://www.nowgoal.com/images/redcard".$match->g_read_card.".gif'>"; else  $g_redcard = "";
-        if(intval($match->h_yellow_card)!=0) $h_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->h_yellow_card.".gif'>"; else $h_yellowcard = "";
-        if(intval($match->g_yellow_card)!=0) $g_yellowcard = "<img src='http://www.nowgoal.com/images/yellow".$match->g_yellow_card.".gif'>"; else  $g_yellowcard = "";
+        if (intval($match->h_read_card) != 0) $h_redcard = "<img src='http://www.nowgoal.com/images/redcard" . $match->h_read_card . ".gif'>"; else $h_redcard = "";
+        if (intval($match->g_read_card) != 0) $g_redcard = "<img src='http://www.nowgoal.com/images/redcard" . $match->g_read_card . ".gif'>"; else  $g_redcard = "";
+        if (intval($match->h_yellow_card) != 0) $h_yellowcard = "<img src='http://www.nowgoal.com/images/yellow" . $match->h_yellow_card . ".gif'>"; else $h_yellowcard = "";
+        if (intval($match->g_yellow_card) != 0) $g_yellowcard = "<img src='http://www.nowgoal.com/images/yellow" . $match->g_yellow_card . ".gif'>"; else  $g_yellowcard = "";
 
 
-        $start_time=DateTime::createFromFormat('Y-m-j H:i:s',$match->time_1);
+        $start_time = DateTime::createFromFormat('Y-m-j H:i:s', $match->time_1);
         $start_time->setTimezone(new DateTimeZone("Asia/Ho_Chi_Minh"));
-        $start_time=$start_time->format("M-j H:i");
-        $minute="";
-        $time_color="";
-        $ht_score='';
-        $score='<font color="blue"> - </font>';
-        if(intval($match->status)==-1) {
-            $time_color='<font color="0x0066ff">FT</font>';
+        $start_time = $start_time->format("M-j H:i");
+        $minute = "";
+        $time_color = "";
+        $ht_score = '';
+        $score = '<font color="blue"> - </font>';
+        if (intval($match->status) == -1) {
+            $time_color = '<font color="0x0066ff">FT</font>';
 
-            $ht_score='<font color="red">'.$match->ht_h_goal.' - '.$match->ht_g_goal.'</font>';
+            $ht_score = '<font color="red">' . $match->ht_h_goal . ' - ' . $match->ht_g_goal . '</font>';
 
-            $score='<font color="red">'.$match->h_goal.' - '.$match->g_goal.'</font>';
+            $score = '<font color="red">' . $match->h_goal . ' - ' . $match->g_goal . '</font>';
 
-        }elseif(intval($match->status)==2) {
-            $time_color='<font color="blue">HT</font>';
+        } elseif (intval($match->status) == 2) {
+            $time_color = '<font color="blue">HT</font>';
 
-            $score='<font color="blue">'.$match->h_goal.' - '.$match->g_goal.'</font>';
-        }elseif(intval($match->status)==1) {
-            $minute=floor((time()-strtotime($match->time_2))/60);
-            if($minute<1) $minute=1;
-            if($minute>45) $minute="45+";
-            $time_color='<font color="0x0066ff">'.$minute.'</font><image src="http://www.nowgoal.com/images/in.gif" border="0"/>';
+            $score = '<font color="blue">' . $match->h_goal . ' - ' . $match->g_goal . '</font>';
+        } elseif (intval($match->status) == 1) {
+            $minute = floor((time() - strtotime($match->time_2)) / 60);
+            if ($minute < 1) $minute = 1;
+            if ($minute > 45) $minute = "45+";
+            $time_color = '<font color="0x0066ff">' . $minute . '</font><image src="http://www.nowgoal.com/images/in.gif" border="0"/>';
 
-            $score='<font color="blue">'.$match->h_goal.' - '.$match->g_goal.'</font>';
-        }elseif(intval($match->status)==3) {
-            $minute=floor(46+(time()-strtotime($match->time_2))/60);
-            if($minute<46) $minute=46;
-            if($minute>90) $minute="90+";
-            $time_color='<font color="0x0066ff">'.$minute.'</font><image src="http://www.nowgoal.com/images/in.gif" border="0"/>';
+            $score = '<font color="blue">' . $match->h_goal . ' - ' . $match->g_goal . '</font>';
+        } elseif (intval($match->status) == 3) {
+            $minute = floor(46 + (time() - strtotime($match->time_2)) / 60);
+            if ($minute < 46) $minute = 46;
+            if ($minute > 90) $minute = "90+";
+            $time_color = '<font color="0x0066ff">' . $minute . '</font><image src="http://www.nowgoal.com/images/in.gif" border="0"/>';
 
-            $ht_score='<font color="red">'.$match->ht_h_goal.' - '.$match->ht_g_goal.'</font>';
+            $ht_score = '<font color="red">' . $match->ht_h_goal . ' - ' . $match->ht_g_goal . '</font>';
 
-            $score='<font color="blue">'.$match->h_goal.' - '.$match->g_goal.'</font>';
+            $score = '<font color="blue">' . $match->h_goal . ' - ' . $match->g_goal . '</font>';
         } else {
-            $time_color=$state_ch[$match->status+14];
+            $time_color = $state_ch[$match->status + 14];
         }
         ?>
         <tr class="{{$classtr}}" id="{{$match->id}}">
-            <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center" title="{{$match->name}}">
+            <td style="background-color: {{$match->color}}}; color: #ffffff; text-align: center"
+                title="{{$match->name}}">
                 {{$match->code}}
             </td>
             <td style="text-align: center">{{$start_time}}</td>
@@ -114,7 +133,10 @@ $state_ch=array(
             <td style="text-align: center">{{$ht_score}}</td>
             <td style="text-align: center">
                 @if(in_array($match->id,$exist_odds))
-                    <a href="<?php echo URL::to("/");?>/matchs/<?php echo $match->id?>/odds/view" target="_blank"><image src="http://www.nowgoal.com/images/t3.gif"/></a>
+                    <a href="<?php echo URL::to("/");?>/matchs/<?php echo $match->id?>/odds/view"
+                       target="_blank">
+                        <image src="http://www.nowgoal.com/images/t3.gif"/>
+                    </a>
                 @endif
             </td>
         </tr>

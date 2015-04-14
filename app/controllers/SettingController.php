@@ -27,4 +27,24 @@ class SettingController extends BaseController{
         $rule_type=InputHelper::getInput('rule_type',true);
         return  View::make('client.add_rule',array('rule_type'=>$rule_type));
     }
+    public function getSoundSettingView() {
+        $settings=Settings::getAll();
+        return View::make('client.sound_setting',array('settings'=>$settings));
+    }
+    public function postSoundSetting() {
+        try {
+            $yellow_sound=InputHelper::getInput('yellow_sound',true);
+            $red_sound=InputHelper::getInput('red_sound',true);
+
+            $sql="update _settings set `value`= case
+              when `key`='yellow_sound' then {$yellow_sound}
+              when `key`='red_sound' then '{$red_sound}'
+              end where `key` in ('yellow_sound','red_sound')";
+            DBConnection::write()->update($sql);
+            return ResponseBuilder::success(array('html'=>'Success','error'=>0));
+        } catch(Exception $e) {
+            return ResponseBuilder::success(array('html'=>$e->getMessage(),'error'=>1));
+        }
+
+    }
 }

@@ -152,5 +152,59 @@ var SettingModule = {
             }
         });
         return false;
+    },
+    saveSoundSetting : function(myself) {
+
+        var yellow_sound =0;
+        if($('#yellow_sound').is(':checked')){
+            yellow_sound=1;
+        }
+        var red_sound =0;
+        if($('#red_sound').is(':checked')){
+            red_sound=1;
+        }
+
+        $.ajax({
+            url: this.urlApi + 'settings/sound',
+            data: {yellow_sound: yellow_sound,red_sound:red_sound},
+            type: "POST",
+            beforeSend: function () {
+                $(myself).button('Đang lưu...');
+            },
+            success: function (result) {
+                if(result.error==0) {
+                    $('#divresult').removeClass();
+                    $('#divresult').addClass("alert");
+                    $('#divresult').addClass("alert-success");
+                    $('#divresult').html('Thành Công.');
+                } else {
+                    $('#divresult').removeClass();
+                    $('#divresult').addClass("alert");
+                    $('#divresult').addClass("alert-danger");
+                    $('#divresult').html('Error:'+result.html);
+                }
+            },
+            error: function (jqXHR) {
+                alert(jqXHR.responseText)
+            }
+        });
+        return false;
+
+    },
+    loadSoundSetting : function(myself) {
+        $.ajax({
+            url:this.urlApi+"settings/sound",
+            type: "GET",
+            beforeSend: function () {
+                $('#divSoundSetting').html("Đang tải dữ liệu...");
+            },
+            success: function (result) {
+                $('#divSoundSetting').html(result);
+            },
+            error: function (jqXHR) {
+                alert(jqXHR.responseText);
+            }
+
+        });
     }
 };

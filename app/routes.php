@@ -45,8 +45,11 @@ Route::match(array('GET', 'POST'), '/setApiDoc','LogController@setApiDoc');
 Route::get('/matchs/data','ClientViewController@getMatchsData');
 Route::get('/matchs','ClientViewController@getMatchsView');
 
+
+Route::post('/settings/sound','SettingController@postSoundSetting');
 Route::get('/settings','SettingController@getSettingView');
 Route::get('/settings/data/{data_type}','SettingController@getSettingRules');
+Route::get('/settings/sound','SettingController@getSoundSettingView');
 
 Route::get('/rules/{id}/editview','SettingController@getEditRuleView');
 Route::post('/rules/{id}/delete','RuleController@delete');
@@ -59,10 +62,7 @@ Route::get('/matchs/{match_id}/odds/data','ClientViewController@getMatchOddData'
 
 //TEST
 Route::get('/test',function() {
-    $arr1=array(1,2,3,4,7,9);
-    $arr2=array(3,4,6,7);
-    $re=array_diff($arr1,$arr2);
-    var_dump($re);
+    return View::make('client.tabsetting');
 });
 
 

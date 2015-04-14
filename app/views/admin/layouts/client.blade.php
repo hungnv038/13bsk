@@ -60,8 +60,12 @@
                 <li class="{{Request::segment(1) == 'matchs' ? 'active' : ''}}">
                     <a href="{{URL::to('/matchs')}}">Matchs</a>
                 </li>
-                <li class="{{Request::segment(1) == 'settings' ? 'active' : ''}}">
+                <li class=" dropdown {{Request::segment(1) == 'settings' ? 'active' : ''}}">
                     <a href="{{URL::to('/settings')}}">Settings</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
