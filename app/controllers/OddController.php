@@ -222,7 +222,7 @@ class OddController extends BaseController{
 
 
         // get all max id have time =-1
-        $sqlid2="select max(id) as id from odds where time=-1 and home >=0.7 and home <=1.2 group by match_id,type";
+        $sqlid2="select max(id) as id from odds where time=-1 group by match_id,type";
         $resultid2=DBConnection::read()->select($sqlid2);
 
         foreach ($resultid2 as $item2) {
@@ -240,10 +240,12 @@ class OddController extends BaseController{
         $start_odds_matchs=array();
 
         foreach($result1 as $item) {
-            if(!array_key_exists($item->rule_id,$start_odds_matchs)) {
-                $start_odds_matchs[$item->rule_id]=array();
+            if($item->home>=0.75 and $item->home<=1.2) {
+                if(!array_key_exists($item->rule_id,$start_odds_matchs)) {
+                    $start_odds_matchs[$item->rule_id]=array();
+                }
+                $start_odds_matchs[$item->rule_id][]=$item->match_id;
             }
-            $start_odds_matchs[$item->rule_id][]=$item->match_id;
         }
 
         $sql2="select odds.*,rules.id as rule_id,rules.type as rule_type,rules.after_odd

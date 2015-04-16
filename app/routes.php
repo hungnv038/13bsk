@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function() {
-    return View::make("hello");
+    return View::make("client.login");
 });
 Route::get('/syncdata',function() {
     return View::make('syncdata');

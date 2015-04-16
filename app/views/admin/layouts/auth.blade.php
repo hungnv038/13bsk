@@ -59,16 +59,7 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <li class="{{Request::segment(1) == 'matchs' ? 'active' : ''}}">
-                    <a href="{{URL::to('/matchs')}}">Matchs</a>
-                </li>
-                <li class=" dropdown {{Request::segment(1) == 'settings' ? 'active' : ''}}">
-                    <a href="{{URL::to('/settings')}}">Settings</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
+
             </ul>
         </div>
     </nav>
@@ -76,7 +67,7 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- /.row -->
-            <div style="height: 100%;">
+            <div>
                 @yield('content')
             </div>
         </div>
