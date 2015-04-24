@@ -139,7 +139,7 @@ class MatchController extends BaseController {
             $commands[]="/background/updateodd";
             $parameters[]=array('match_id'=>$match_id,'odd_link'=>$odd_link);
         }
-        if(BackgroundProcess::countRecords()==0) {
+        if(BackgroundProcess::countActiveProcess()<=2) {
             BackgroundProcess::getInstance()->throwMultipleProcesses(array('command'=>$commands,'parameter'=>$parameters));
         }
     }
