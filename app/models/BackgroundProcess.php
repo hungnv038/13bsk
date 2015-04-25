@@ -139,6 +139,14 @@ class BackgroundProcess extends ModelBase{
         );
         return $r[0]->cnt;
     }
+    public static function countWaitingProcess() {
+        $r = DBConnection::read()->select("
+            SELECT count(*) as cnt
+            FROM process
+            WHERE status = 'waiting'"
+        );
+        return $r[0]->cnt;
+    }
 
     public static function countRecords() {
         $r = DBConnection::read()->select("
